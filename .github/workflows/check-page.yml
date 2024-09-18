@@ -23,7 +23,7 @@ jobs:
       - name: Install Poetry dependencies
         run: poetry install --no-interaction --no-root
       - name: Run link checker
-        run: poetry run linkchecker --check-extern --no-warnings --file-output=html ${{ inputs.url }}
+        run: poetry run linkchecker --check-extern --no-warnings --file-output=html --recursion-level=1 ${{ inputs.url }}
       - name: Archive report
         if: always()
         uses: actions/upload-artifact@v4
