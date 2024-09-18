@@ -25,7 +25,7 @@ parser.add_argument(
 args = parser.parse_args()
 
 
-all_pages = get_urls_from_sitemap(args.sitemap)
+pages = get_urls_from_sitemap(args.sitemap)
 if args.ignore_list is not None:
     pages = [
         page
