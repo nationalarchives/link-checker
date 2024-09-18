@@ -6,7 +6,6 @@ import urllib.request
 from datetime import datetime
 
 from lib.parse_html_page import get_links_from_page
-from lib.parse_xml_sitemap import get_urls_from_sitemap
 
 parser = argparse.ArgumentParser("simple_example")
 parser.add_argument(
@@ -63,7 +62,7 @@ if len(failed_links):
         json.dump(
             {
                 "datetime": now.strftime("%Y-%m-%d %H:%M:%S"),
-                "sitemap": args.sitemap,
+                "sitemap": args.url,
                 "broken_links": failed_links,
             },
             f,

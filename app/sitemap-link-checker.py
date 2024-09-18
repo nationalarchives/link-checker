@@ -10,7 +10,7 @@ from lib.parse_xml_sitemap import get_urls_from_sitemap
 
 parser = argparse.ArgumentParser("simple_example")
 parser.add_argument(
-    "sitemap",
+    "url",
     help="The URL of an XML sitemap to itterate through.",
     type=str,
 )
@@ -25,7 +25,7 @@ parser.add_argument(
 args = parser.parse_args()
 
 
-pages = get_urls_from_sitemap(args.sitemap)
+pages = get_urls_from_sitemap(args.url)
 failed_links = []
 checked_links = []
 
@@ -66,7 +66,7 @@ if len(failed_links):
         json.dump(
             {
                 "datetime": now.strftime("%Y-%m-%d %H:%M:%S"),
-                "sitemap": args.sitemap,
+                "sitemap": args.url,
                 "broken_links": failed_links,
             },
             f,

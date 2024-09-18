@@ -6,7 +6,7 @@ from lib.parse_xml_sitemap import get_urls_from_sitemap
 
 parser = argparse.ArgumentParser("simple_example")
 parser.add_argument(
-    "sitemap",
+    "url",
     help="The URL of an XML sitemap to itterate through.",
     type=str,
 )
@@ -21,7 +21,7 @@ parser.add_argument(
 args = parser.parse_args()
 
 
-pages = get_urls_from_sitemap(args.sitemap)
+pages = get_urls_from_sitemap(args.url)
 if args.ignore_list is not None:
     pages = [page for page in pages if page not in args.ignore_list]
 
