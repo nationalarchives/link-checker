@@ -27,13 +27,15 @@ args = parser.parse_args()
 
 pages = get_urls_from_sitemap(args.sitemap)
 if args.ignore_list is not None:
-    pages = [
-        page
-        for page in get_urls_from_sitemap(args.sitemap)
-        if page not in args.ignore_list
-    ]
+    pages = [page for page in pages if page not in args.ignore_list]
 
-with open("pages.txt", "w") as f:
+links = set()
+for page in pages:
+    links.add(page)
+    for link in get_links_from_page(page):
+        links.add(link)
+
+with open("links.txt", "w") as f:
     f.write("# LinkChecker URL list\n")
-    f.write("\n".join(pages))
+    f.write("\n".join(links))
 sys.exit()

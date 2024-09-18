@@ -44,7 +44,7 @@ jobs:
       - name: Run link checker
         run: |
           poetry run python app/generate-pages-list.py ${{ inputs.sitemap }}
-          poetry run linkchecker --check-extern --no-warnings --file-output=html --recursion-level=1 pages.txt
+          poetry run linkchecker --check-extern --no-warnings --file-output=html --recursion-level=1 links.txt
       - name: Archive report
         if: always()
         uses: actions/upload-artifact@v4

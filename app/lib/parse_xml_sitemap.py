@@ -5,9 +5,9 @@ import xml.etree.ElementTree as ET
 
 
 def get_urls_from_sitemap(sitemap_url):
+    print(f"Getting pages from {sitemap_url}...")
     root = None
     pages = []
-
     try:
         with urllib.request.urlopen(sitemap_url) as f:
             xml = f.read().decode("utf-8")
@@ -18,7 +18,6 @@ def get_urls_from_sitemap(sitemap_url):
     except urllib.error.URLError as e:
         print(f"⚠️ [ FAIL ] {sitemap_url} - URLError: {e.reason}")
         sys.exit(1)
-
     if root is not None:
         for url in root:
             for loc in url:
@@ -27,5 +26,4 @@ def get_urls_from_sitemap(sitemap_url):
                     == "{http://www.sitemaps.org/schemas/sitemap/0.9}loc"
                 ):
                     pages.append(loc.text)
-
     return pages

@@ -4,6 +4,7 @@ import urllib.request
 
 
 def get_links_from_page(url):
+    print(f"Getting links from {url}...")
     links = []
     try:
         with urllib.request.urlopen(url) as page:
