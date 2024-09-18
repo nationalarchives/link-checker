@@ -1,0 +1,26 @@
+name: Check page
+
+on:
+  workflow_dispatch:
+    inputs:
+      url:
+        type: string
+        description: Page URL
+        required: true
+
+concurrency:
+  group: check-page-${{ inputs.url }}
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: 3.12
+      - uses: snok/install-poetry@v1
+      - name: Install Poetry dependencies
+        run: poetry install --no-interaction --no-root
+      - name: Run link checker
+        run: poetry run linkchecker --check-extern ${{ inputs.url }}
