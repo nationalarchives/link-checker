@@ -57,21 +57,23 @@ for page_url in pages:
             else:
                 print(f"✅ [ PASS ] {link_url}")
 
+
+with open("report.json", "w") as f:
+    now = datetime.now()
+    json.dump(
+        {
+            "datetime": now.strftime("%Y-%m-%d %H:%M:%S"),
+            "sitemap": args.url,
+            "broken_links": failed_links,
+        },
+        f,
+        ensure_ascii=False,
+        indent=4,
+    )
+
 if len(failed_links):
     print()
     print(f"❌ [ FAIL ] {len(failed_links)}/{len(checked_links)} links failed")
-    with open("report.json", "w") as f:
-        now = datetime.now()
-        json.dump(
-            {
-                "datetime": now.strftime("%Y-%m-%d %H:%M:%S"),
-                "sitemap": args.url,
-                "broken_links": failed_links,
-            },
-            f,
-            ensure_ascii=False,
-            indent=4,
-        )
     sys.exit(1)
 else:
     print()
