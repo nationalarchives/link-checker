@@ -12,7 +12,7 @@ concurrency:
   group: check-sitemap-${{ inputs.sitemap }}
 
 jobs:
-  check:
+  check1:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -23,7 +23,7 @@ jobs:
       - name: Install Poetry dependencies
         run: poetry install --no-interaction --no-root
       - name: Run link checker
-        run: poetry run python app/link-checker.py ${{ inputs.sitemap }}
+        run: poetry run python app/sitemap-link-checker.py ${{ inputs.sitemap }}
       - name: Archive report
         if: always()
         uses: actions/upload-artifact@v4
@@ -44,7 +44,7 @@ jobs:
       - name: Run link checker
         run: |
           poetry run python app/generate-sitemap-links-list.py ${{ inputs.sitemap }}
-          poetry run linkchecker --check-extern --no-warnings --file-output=html --recursion-level=1 links.txt
+          poetry run linkchecker --check-extern --no-warnings --file-output=html --recursion-level=1 --no-robots links.txt
       - name: Archive report
         if: always()
         uses: actions/upload-artifact@v4

@@ -12,7 +12,7 @@ concurrency:
   group: check-page-${{ inputs.url }}
 
 jobs:
-  check:
+  check1:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -23,10 +23,29 @@ jobs:
       - name: Install Poetry dependencies
         run: poetry install --no-interaction --no-root
       - name: Run link checker
-        run: poetry run linkchecker --check-extern --no-warnings --file-output=html --recursion-level=1 ${{ inputs.url }}
+        run: poetry run python app/page-link-checker.py ${{ inputs.sitemap }}
       - name: Archive report
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: report
+          name: report-1
+          path: report.json
+
+  check2:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: 3.12
+      - uses: snok/install-poetry@v1
+      - name: Install Poetry dependencies
+        run: poetry install --no-interaction --no-root
+      - name: Run link checker
+        run: poetry run linkchecker --check-extern --no-warnings --file-output=html --recursion-level=1 --no-robots ${{ inputs.url }}
+      - name: Archive report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: report-2
           path: linkchecker-out.html
