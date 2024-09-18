@@ -43,7 +43,7 @@ jobs:
         run: poetry install --no-interaction --no-root
       - name: Run link checker
         run: |
-          poetry run python app/generate-pages-list.py ${{ inputs.sitemap }}
+          poetry run python app/generate-sitemap-links-list.py ${{ inputs.sitemap }}
           poetry run linkchecker --check-extern --no-warnings --file-output=html --recursion-level=1 links.txt
       - name: Archive report
         if: always()

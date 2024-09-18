@@ -1,9 +1,5 @@
 import argparse
-import json
 import sys
-import urllib.error
-import urllib.request
-from datetime import datetime
 
 from lib.parse_html_page import get_links_from_page
 from lib.parse_xml_sitemap import get_urls_from_sitemap
