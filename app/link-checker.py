@@ -37,7 +37,7 @@ for page_url in pages:
     except Exception as e:
         print(f"⚠️ [ FAIL ] {page_url} - URLError: {e}")
     for link_url in page_links:
-        if link_url in args.ignore_list:
+        if args.ignore_list is not None and link_url in args.ignore_list:
             print(f"🙈 [IGNORE] {link_url}")
         elif link_url in checked_links:
             print(f"🙈 [ DUPL ] {link_url}")
