@@ -23,7 +23,7 @@ jobs:
       - name: Install Poetry dependencies
         run: poetry install --no-interaction --no-root
       - name: Run link checker
-        run: poetry run python app/page-link-checker.py ${{ inputs.sitemap }}
+        run: poetry run python app/page-link-checker.py ${{ inputs.url }}
       - name: Archive report
         if: always()
         uses: actions/upload-artifact@v4

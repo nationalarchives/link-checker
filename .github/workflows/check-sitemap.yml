@@ -3,13 +3,13 @@ name: Check sitemap
 on:
   workflow_dispatch:
     inputs:
-      sitemap:
+      url:
         type: string
         description: XML sitemap URL
         required: true
 
 concurrency:
-  group: check-sitemap-${{ inputs.sitemap }}
+  group: check-sitemap-${{ inputs.url }}
 
 jobs:
   check1:
@@ -23,7 +23,7 @@ jobs:
       - name: Install Poetry dependencies
         run: poetry install --no-interaction --no-root
       - name: Run link checker
-        run: poetry run python app/sitemap-link-checker.py ${{ inputs.sitemap }}
+        run: poetry run python app/sitemap-link-checker.py ${{ inputs.url }}
       - name: Archive report
         if: always()
         uses: actions/upload-artifact@v4
@@ -43,7 +43,7 @@ jobs:
         run: poetry install --no-interaction --no-root
       - name: Run link checker
         run: |
-          poetry run python app/generate-sitemap-links-list.py ${{ inputs.sitemap }}
+          poetry run python app/generate-sitemap-links-list.py ${{ inputs.url }}
           poetry run linkchecker --check-extern --no-warnings --file-output=html --recursion-level=1 --no-robots links.txt
       - name: Archive report
         if: always()

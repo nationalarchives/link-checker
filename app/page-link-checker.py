@@ -29,7 +29,6 @@ checked_links = []
 
 try:
     page_links = get_links_from_page(args.url)
-    print(f"{args.url}")
 except Exception as e:
     print(f"⚠️ [ FAIL ] {args.url} - URLError: {e}")
 for link_url in page_links:

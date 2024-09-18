@@ -33,7 +33,6 @@ for page_url in pages:
     print()
     try:
         page_links = get_links_from_page(page_url)
-        print(f"{page_url}")
     except Exception as e:
         print(f"⚠️ [ FAIL ] {page_url} - URLError: {e}")
     for link_url in page_links:
